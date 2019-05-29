@@ -18,5 +18,13 @@ js在链式调用属性的时候，如果出现undefined，后续调用就会直
 --
 
 ```js
-let value = safeget(_=>a.b.c)
+let safegetModule = require('./safeget')
+let value = safegetModule.safeget(()=>a.b.c)
+let value2 = safegetModule.safegetArg(arg=>arg.b.c,{b:{c:'C'}})
 ```
+
+注意点
+--
+
+注意闭包的词法作用域，由于对safeget传参一个匿名函数，该匿名函数的词法作用域还是本地的即创建时的。而不是safeget里面的。  
+所以，提供了两个函数，一个简略一个完整，提供使用。
