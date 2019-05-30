@@ -17,16 +17,16 @@ js在链式调用属性的时候，如果出现undefined，后续调用就会直
 使用
 --
 
-导入模块，构造一个匿名函数返回读取的属性传参进去。使用父作用域变量可以使用safeget函数，使用指定变量可以使用safegetArg函数。
+导入模块，使用时传入构造一个匿名函数返回读取的属性。匿名函数可以使用父作用域变量，也可以使用指定第二个变量配合匿名函数传参。
 
 ```js
-let safegetModule = require('./safeget')
+let {safeget} = require('./safeget')
 let a={b:{c:'C'}}
-let value = safegetModule.safeget(()=>a.b.c)
-let value2 = safegetModule.safegetArg(arg=>arg.b.c,a)
+let value = safeget(()=>a.b.c)
+let value2 = safeget(arg=>arg.b.c,a)
 ```
 
-例子
+演示
 --
 
 运行`node index.js`
@@ -34,5 +34,5 @@ let value2 = safegetModule.safegetArg(arg=>arg.b.c,a)
 注意点
 --
 
-注意闭包的词法作用域，由于对safeget传参一个匿名函数，该匿名函数的词法作用域还是本地的即创建时的。而不是safeget里面的。  
-所以，提供了两个函数，一个简略一个完整，提供使用。
+注意闭包的词法作用域，由于对safeget传参一个匿名函数，该匿名函数的词法作用域还是本地的即创建时的词法作用域。而不是safeget里面的。  
+所以，指定参数时，匿名函数构造时也要有参数传入，然后使用该参数。
