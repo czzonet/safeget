@@ -1,4 +1,4 @@
-安全读取属性
+安全读取属性模块
 =
 
 js在链式调用属性的时候，如果出现undefined，后续调用就会直接报错。针对这个问题，封装了一个安全读取的函数，能够捕获错误不报错。  
@@ -17,11 +17,19 @@ js在链式调用属性的时候，如果出现undefined，后续调用就会直
 使用
 --
 
+导入模块，构造一个匿名函数返回读取的属性传参进去。使用父作用域变量可以使用safeget函数，使用指定变量可以使用safegetArg函数。
+
 ```js
 let safegetModule = require('./safeget')
+let a={b:{c:'C'}}
 let value = safegetModule.safeget(()=>a.b.c)
-let value2 = safegetModule.safegetArg(arg=>arg.b.c,{b:{c:'C'}})
+let value2 = safegetModule.safegetArg(arg=>arg.b.c,a)
 ```
+
+例子
+--
+
+运行`node index.js`
 
 注意点
 --
